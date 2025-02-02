@@ -1,106 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Configurator zzz Flowchart</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Configurator Flowchart</title>
   <style>
-    /* Hide all pages by default */
-    .page {
-      display: none;
-      padding: 20px;
+    body {
+      font-family: Arial, sans-serif;
       margin: 20px;
+      line-height: 1.6;
+      background: #f0f0f0;
+    }
+    .container {
+      background: #fff;
       border: 1px solid #ddd;
       border-radius: 4px;
-      background: #f9f9f9;
+      margin-bottom: 30px;
+      padding: 20px;
     }
-    /* Display only the target page */
-    .page:target {
-      display: block;
+    .question h2 {
+      margin-top: 0;
     }
-    /* Basic styling for options */
-    .options a {
-      display: inline-block;
-      margin: 10px 10px 10px 0;
+    .options {
+      margin-top: 10px;
+    }
+    .options button {
+      margin: 5px 5px 5px 0;
       padding: 10px 15px;
-      text-decoration: none;
+      border: none;
       background-color: #007BFF;
-      color: white;
+      color: #fff;
       border-radius: 4px;
+      cursor: pointer;
     }
-    .options a:hover {
+    .options button:hover {
       background-color: #0056b3;
+    }
+    .answer {
+      margin-top: 20px;
+      border-top: 1px dashed #ccc;
+      padding-top: 20px;
+      display: none;
+    }
+    .answer p {
+      margin: 0 0 10px 0;
+    }
+    .next-btn {
+      padding: 8px 12px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .next-btn:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
-  <!-- If no hash is present, default to #question1 -->
-  <script>
-    if (!window.location.hash) {
-      window.location.hash = "#question1";
-    }
-  </script>
-
-  <!-- Configuration Question 1 -->
-  <div id="question1" class="page">
-    <h2>Configuration Question 1</h2>
-    <p>Keep the black appearance, or return to the classic XR look?</p>
-    <div class="options">
-      <a href="#blackOption">Black Appearance</a>
-      <a href="#classicOption">Classic XR Appearance</a>
+  <!-- Question 1 Container -->
+  <div id="question1" class="container">
+    <div class="question">
+      <h2>Configuration Question 1</h2>
+      <p>Keep the black appearance, or return to the classic XR look?</p>
+      <div class="options">
+        <button onclick="showAnswer('answer1', 'black')">Black Appearance</button>
+        <button onclick="showAnswer('answer1', 'classic')">Classic XR Appearance</button>
+      </div>
+    </div>
+    <div class="answer" id="answer1">
+      <!-- Each answer option is contained in its own block -->
+      <div id="answer1-black" class="answer-text" style="display: none;">
+        <p>
+          Strip off the old grip-tape and apply the brand new grip tape to give the board a real lift.
+        </p>
+      </div>
+      <div id="answer1-classic" class="answer-text" style="display: none;">
+        <p>
+          Strip off the camo rail guards to reveal the pristine naked rails. Replace the back and front footpads with the factory-new footpads included.
+        </p>
+      </div>
+      <!-- Next question button -->
+      <button class="next-btn" onclick="revealQuestion('question2')">Next Question &raquo;</button>
     </div>
   </div>
 
-  <!-- Black Appearance Answer -->
-  <div id="blackOption" class="page">
-    <h3>Black Appearance</h3>
-    <p>
-      Strip off the old grip-tape and apply the brand new grip tape to give the board a real lift.
-    </p>
-    <p><a href="#question2">Next Question &raquo;</a></p>
-  </div>
-
-  <!-- Classic XR Appearance Answer -->
-  <div id="classicOption" class="page">
-    <h3>Classic XR Appearance</h3>
-    <p>
-      Strip off the camo rail guards to reveal the pristine naked rails. Replace the back and front footpads with the factory-new footpads included.
-    </p>
-    <p><a href="#question2">Next Question &raquo;</a></p>
-  </div>
-
-  <!-- Configuration Question 2 -->
-  <div id="question2" class="page">
-    <h2>Configuration Question 2</h2>
-    <p>Do you want to keep the range extender port?</p>
-    <div class="options">
-      <a href="#rangeYes">Yes</a>
-      <a href="#rangeNo">No</a>
+  <!-- Question 2 Container (hidden until revealed) -->
+  <div id="question2" class="container" style="display: none;">
+    <div class="question">
+      <h2>Configuration Question 2</h2>
+      <p>Do you want to keep the range extender port?</p>
+      <div class="options">
+        <button onclick="showAnswer('answer2', 'yes')">Yes</button>
+        <button onclick="showAnswer('answer2', 'no')">No</button>
+      </div>
+    </div>
+    <div class="answer" id="answer2">
+      <div id="answer2-yes" class="answer-text" style="display: none;">
+        <p>
+          Awesome. Then you probably also want to offer to buy the cord and battery connector.
+        </p>
+      </div>
+      <div id="answer2-no" class="answer-text" style="display: none;">
+        <p>
+          Keeping it simple! If you take away the shrink wrap on the cable coming out of the cable connector box, there are bullet connectors that will allow you to keep the connector port intact in case you change your mind later. Use some hot glue or another method to isolate the bullet connectors to keep them clean and dry. You can probably also fit any extra wiring into the plug protector box.
+        </p>
+      </div>
+      <!-- Next question button (or placeholder for further questions) -->
+      <button class="next-btn" onclick="revealQuestion('furtherQuestions')">Next Question &raquo;</button>
     </div>
   </div>
 
-  <!-- Range Extender Port - Yes Answer -->
-  <div id="rangeYes" class="page">
-    <h3>Range Extender Port - Yes</h3>
-    <p>
-      Awesome. Then you probably also want to offer to buy the cord and battery connector.
-    </p>
-    <p><a href="#furtherQuestions">Next Question &raquo;</a></p>
-  </div>
-
-  <!-- Range Extender Port - No Answer -->
-  <div id="rangeNo" class="page">
-    <h3>Range Extender Port - No</h3>
-    <p>
-      Keeping it simple! If you take away the shrink wrap on the cable coming out of the cable connector box, there are bullet connectors that will allow you to keep the connector port intact in case you change your mind later. Use some hot glue or another method to isolate the bullet connectors to keep them clean and dry. You can probably also fit any extra wiring into the plug protector box.
-    </p>
-    <p><a href="#furtherQuestions">Next Question &raquo;</a></p>
-  </div>
-
-  <!-- Placeholder for Further Questions -->
-  <div id="furtherQuestions" class="page">
+  <!-- Further Questions Placeholder Container (hidden until revealed) -->
+  <div id="furtherQuestions" class="container" style="display: none;">
     <h2>Further Questions</h2>
     <p>(Additional configuration questions will be added here.)</p>
   </div>
+
+  <!-- JavaScript to handle showing answers and revealing next questions -->
+  <script>
+    function showAnswer(answerDivId, option) {
+      // Show the answer container for the current question
+      var answerDiv = document.getElementById(answerDivId);
+      answerDiv.style.display = 'block';
+
+      // Hide all answer-text blocks within this container
+      var answerBlocks = answerDiv.getElementsByClassName('answer-text');
+      for (var i = 0; i < answerBlocks.length; i++) {
+        answerBlocks[i].style.display = 'none';
+      }
+      // Show the selected answer block
+      var chosenAnswer = document.getElementById(answerDivId + '-' + option);
+      if (chosenAnswer) {
+        chosenAnswer.style.display = 'block';
+      }
+      // Optionally, scroll to the answer block for clarity
+      answerDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function revealQuestion(questionId) {
+      // Reveal the next question container
+      var nextQuestion = document.getElementById(questionId);
+      nextQuestion.style.display = 'block';
+      // Smooth scroll to the new question
+      nextQuestion.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
