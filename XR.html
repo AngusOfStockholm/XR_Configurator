@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configurator Flowchart</title>
   <style>
-    /* Basic styling for mobile and desktop */
-    body {
-      font-family: Arial, sans-serif;
+    /* Hide all pages by default */
+    .page {
+      display: none;
+      padding: 20px;
       margin: 20px;
-      line-height: 1.6;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
     }
-    .question {
-      margin-bottom: 40px;
+    /* Display only the target page */
+    .page:target {
+      display: block;
     }
+    /* Basic styling for options */
     .options a {
       display: inline-block;
       margin: 10px 10px 10px 0;
@@ -26,86 +31,74 @@
     .options a:hover {
       background-color: #0056b3;
     }
-    /* Smooth scrolling for anchor links */
-    html {
-      scroll-behavior: smooth;
-    }
-    /* Styling for the details sections */
-    .detail {
-      background: #f9f9f9;
-      border-left: 4px solid #007BFF;
-      padding: 15px;
-      margin-bottom: 20px;
-    }
   </style>
 </head>
 <body>
+  <!-- If no hash is present, default to #question1 -->
+  <script>
+    if (!window.location.hash) {
+      window.location.hash = "#question1";
+    }
+  </script>
+
   <!-- Configuration Question 1 -->
-  <div class="question" id="question1">
+  <div id="question1" class="page">
     <h2>Configuration Question 1</h2>
     <p>Keep the black appearance, or return to the classic XR look?</p>
     <div class="options">
-      <!-- Option for Black Appearance -->
       <a href="#blackOption">Black Appearance</a>
-      <!-- Option for Classic XR Appearance -->
       <a href="#classicOption">Classic XR Appearance</a>
     </div>
   </div>
 
-  <!-- Details for Black Appearance Option -->
-  <div class="detail" id="blackOption">
+  <!-- Black Appearance Answer -->
+  <div id="blackOption" class="page">
     <h3>Black Appearance</h3>
     <p>
-      Strip off the old grip-tape and apply the brand new grip tape to get give the board a real lift.
+      Strip off the old grip-tape and apply the brand new grip tape to give the board a real lift.
     </p>
-    <!-- Link to Question 2 -->
     <p><a href="#question2">Next Question &raquo;</a></p>
   </div>
 
-  <!-- Details for Classic XR Appearance Option -->
-  <div class="detail" id="classicOption">
+  <!-- Classic XR Appearance Answer -->
+  <div id="classicOption" class="page">
     <h3>Classic XR Appearance</h3>
     <p>
       Strip off the camo rail guards to reveal the pristine naked rails. Replace the back and front footpads with the factory-new footpads included.
     </p>
-    <!-- Link to Question 2 -->
     <p><a href="#question2">Next Question &raquo;</a></p>
   </div>
 
   <!-- Configuration Question 2 -->
-  <div class="question" id="question2">
+  <div id="question2" class="page">
     <h2>Configuration Question 2</h2>
     <p>Do you want to keep the range extender port?</p>
     <div class="options">
-      <!-- Option for Yes -->
       <a href="#rangeYes">Yes</a>
-      <!-- Option for No -->
       <a href="#rangeNo">No</a>
     </div>
   </div>
 
-  <!-- Details for Range Extender Port Option - Yes -->
-  <div class="detail" id="rangeYes">
+  <!-- Range Extender Port - Yes Answer -->
+  <div id="rangeYes" class="page">
     <h3>Range Extender Port - Yes</h3>
     <p>
       Awesome. Then you probably also want to offer to buy the cord and battery connector.
     </p>
-    <!-- Link to next question or end of flow -->
     <p><a href="#furtherQuestions">Next Question &raquo;</a></p>
   </div>
 
-  <!-- Details for Range Extender Port Option - No -->
-  <div class="detail" id="rangeNo">
+  <!-- Range Extender Port - No Answer -->
+  <div id="rangeNo" class="page">
     <h3>Range Extender Port - No</h3>
     <p>
-      Keeping it simple! If you take away the shrink wrap on the cable coming out of the cable connector box, there are bullet connectors that will allow you to keep the connector port intact in case you change your mind later. Use some hot glue or some other method to isolate the bullet connectors to keep them clean and dry in the future. You can probably also fit any extra wiring into the plug protector box.
+      Keeping it simple! If you take away the shrink wrap on the cable coming out of the cable connector box, there are bullet connectors that will allow you to keep the connector port intact in case you change your mind later. Use some hot glue or another method to isolate the bullet connectors to keep them clean and dry. You can probably also fit any extra wiring into the plug protector box.
     </p>
-    <!-- Link to next question or end of flow -->
     <p><a href="#furtherQuestions">Next Question &raquo;</a></p>
   </div>
 
-  <!-- Placeholder for Additional Questions -->
-  <div class="question" id="furtherQuestions">
+  <!-- Placeholder for Further Questions -->
+  <div id="furtherQuestions" class="page">
     <h2>Further Questions</h2>
     <p>(Additional configuration questions will be added here.)</p>
   </div>
