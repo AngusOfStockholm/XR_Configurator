@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Configurator Flowchart</title>
+  <title>Configurator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f0f0f0;
       margin: 20px;
       line-height: 1.6;
-      background: #f0f0f0;
     }
     .container {
       background: #fff;
@@ -18,11 +18,11 @@
       margin-bottom: 30px;
       padding: 20px;
     }
-    .question h2 {
+    h2, h3 {
       margin-top: 0;
     }
     .options {
-      margin-top: 10px;
+      margin-top: 15px;
     }
     .options button {
       margin: 5px 5px 5px 0;
@@ -39,13 +39,14 @@
     .answer {
       margin-top: 20px;
       border-top: 1px dashed #ccc;
-      padding-top: 20px;
+      padding-top: 15px;
       display: none;
     }
     .answer p {
-      margin: 0 0 10px 0;
+      margin: 5px 0;
     }
     .next-btn {
+      margin-top: 10px;
       padding: 8px 12px;
       background-color: #28a745;
       color: #fff;
@@ -59,92 +60,203 @@
   </style>
 </head>
 <body>
-  <!-- Question 1 mmm Container -->
+  <!-- Container 1: Main Configurator -->
   <div id="question1" class="container">
-    <div class="question">
-      <h2>Configuration Question 1</h2>
-      <p>Keep the black appearance, or return to the classic XR look?</p>
-      <div class="options">
-        <button onclick="showAnswer('answer1', 'black')">Black Appearance</button>
-        <button onclick="showAnswer('answer1', 'classic')">Classic XR Appearance</button>
-      </div>
+    <h2>Configurator</h2>
+    <p><strong>What do you want to do?</strong></p>
+    <div class="options">
+      <!-- Each button calls showAnswer with:
+           (the ID of this container's answer block, a string to pick the answer text,
+            and the ID of the next container to reveal) -->
+      <button onclick="showAnswer('answer1', 'look', 'question2')">
+        A. Work with the look
+      </button>
+      <button onclick="showAnswer('answer1', 'battery', 'question3')">
+        B. Work with the battery
+      </button>
+      <button onclick="showAnswer('answer1', 'tire', 'questionTire')">
+        C. Work with the tire
+      </button>
+      <button onclick="showAnswer('answer1', 'vesc', 'questionVESC')">
+        D. Turn this board into a VESC
+      </button>
     </div>
     <div class="answer" id="answer1">
-      <!-- Each answer option is contained in its own block -->
-      <div id="answer1-black" class="answer-text" style="display: none;">
-        <p>
-          Strip off the old grip-tape and apply the brand new grip tape to give the board a real lift.
-        </p>
+      <!-- Hidden answer texts; only the one matching the user’s choice will be shown -->
+      <div id="answer1-look" class="answer-text" style="display: none;">
+        <p>You chose to work with the look.</p>
       </div>
-      <div id="answer1-classic" class="answer-text" style="display: none;">
-        <p>
-          Strip off the camo rail guards to reveal the pristine naked rails. Replace the back and front footpads with the factory-new footpads included.
-        </p>
+      <div id="answer1-battery" class="answer-text" style="display: none;">
+        <p>You chose to work with the battery.</p>
       </div>
-      <!-- Next question button -->
-      <button class="next-btn" onclick="revealQuestion('question2')">Next Question &raquo;</button>
+      <div id="answer1-tire" class="answer-text" style="display: none;">
+        <p>You chose to work with the tire.</p>
+      </div>
+      <div id="answer1-vesc" class="answer-text" style="display: none;">
+        <p>You chose to turn this board into a VESC.</p>
+      </div>
+      <button class="next-btn" id="next1" style="display: none;"
+              onclick="revealQuestion(nextContainer)">Next Question &raquo;</button>
     </div>
   </div>
 
-  <!-- Question 2 Container (hidden until revealed) -->
+  <!-- Container 2: Look Branch -->
   <div id="question2" class="container" style="display: none;">
-    <div class="question">
-      <h2>Configuration Question 2</h2>
-      <p>Do you want to keep the range extender port?</p>
-      <div class="options">
-        <button onclick="showAnswer('answer2', 'yes')">Yes</button>
-        <button onclick="showAnswer('answer2', 'no')">No</button>
-      </div>
+    <h2>2. What look do you like?</h2>
+    <div class="options">
+      <button onclick="showAnswer('answer2', 'black', '')">
+        A. Let’s renew the black look
+      </button>
+      <button onclick="showAnswer('answer2', 'classic', '')">
+        B. Let’s restore the classic XR look
+      </button>
     </div>
     <div class="answer" id="answer2">
-      <div id="answer2-yes" class="answer-text" style="display: none;">
-        <p>
-          Awesome. Then you probably also want to offer to buy the cord and battery connector.
-        </p>
+      <!-- Answer texts for look branch -->
+      <div id="answer2-black" class="answer-text" style="display: none;">
+        <h3>2a. Ideas for the black board</h3>
+        <p><strong>What can I do right now?</strong></p>
+        <ul>
+          <li>Remove the old grip tape from the footpads and apply the brand new grip tape.</li>
+          <li>Remove or add the float plates depending on your riding style and what you like the looks of.</li>
+          <li>Replace the back bumper with a fresh one.</li>
+        </ul>
+        <p><strong>Other ideas?</strong></p>
+        <ul>
+          <li>Order a fender in black, or make it pop with a nice color.</li>
+          <li>Order some fresh rail guards in a nice stealthy color.</li>
+          <li>Get a set of BANG bumpers in black. It’s like bumpers and float plates all in one.</li>
+        </ul>
       </div>
-      <div id="answer2-no" class="answer-text" style="display: none;">
-        <p>
-          Keeping it simple! If you take away the shrink wrap on the cable coming out of the cable connector box, there are bullet connectors that will allow you to keep the connector port intact in case you change your mind later. Use some hot glue or another method to isolate the bullet connectors to keep them clean and dry. You can probably also fit any extra wiring into the plug protector box.
-        </p>
+      <div id="answer2-classic" class="answer-text" style="display: none;">
+        <h3>2b. Ideas for a classic XR+ look</h3>
+        <p><strong>What can I do right now?</strong></p>
+        <ul>
+          <li>Remove the rail guards to reveal those pristine naked rails.</li>
+          <li>Remove the Kush footpads and put on the factory-fresh footpads – both the back footpad and a fresh new sensor-equipped footpad.</li>
+          <li>Remove or add the float plates depending on your riding style and aesthetics.</li>
+        </ul>
+        <p><strong>Other ideas?</strong></p>
+        <ul>
+          <li>Order a fender and make it pop with a nice color.</li>
+          <li>Order some fresh rail guards in a nice new color.</li>
+          <li>Get a set of BANG bumpers – it’s like bumpers and float plates all in one.</li>
+        </ul>
       </div>
-      <!-- Next question button (or placeholder for further questions) -->
-      <button class="next-btn" onclick="revealQuestion('furtherQuestions')">Next Question &raquo;</button>
+      <!-- For this branch, no next question is defined; you might add a "restart" or other navigation -->
     </div>
   </div>
 
-  <!-- Further Questions Placeholder Container (hidden until revealed) -->
-  <div id="furtherQuestions" class="container" style="display: none;">
-    <h2>Further Questions</h2>
-    <p>(Additional configuration questions will be added here.)</p>
+  <!-- Container 3: Battery Branch -->
+  <div id="question3" class="container" style="display: none;">
+    <h2>What kind of sparks are you looking to make?</h2>
+    <div class="options">
+      <button onclick="showAnswer('answer3', '3a', '')">
+        A. I want to upgrade the internal battery
+      </button>
+      <button onclick="showAnswer('answer3', '3b', '')">
+        B. I want to explore the range extender
+      </button>
+      <button onclick="showAnswer('answer3', '4a', '')">
+        C. I want to up the voltage and torque and go VESC
+      </button>
+    </div>
+    <div class="answer" id="answer3">
+      <div id="answer3-3a" class="answer-text" style="display: none;">
+        <h3>3a. Ideas for the internal battery</h3>
+        <p>
+          The board is ready to ride as is, but it doesn’t have the same oomph as before.
+          You can order a replacement stock-style battery – simply unplug a couple of connectors
+          and drop in the new battery. There are various sources in Europe for some very nice custom-made packs.
+        </p>
+      </div>
+      <div id="answer3-3b" class="answer-text" style="display: none;">
+        <h3>3b. Ideas for the range extender</h3>
+        <p>
+          There’s a range extender port (VnR) installed on this board. It’s a standard tap into the battery cable,
+          allowing you to add another 40V battery in parallel for longer range. For example, Greenworks 40V tool batteries work well –
+          available in variants such as 4Wh or 6Wh. You can even charge both batteries simultaneously using the XR charger.
+        </p>
+        <p>
+          A few cautions: never connect a battery that isn’t within about ±10% of the internal battery’s charge;
+          and if you leave the Onewheel App running while riding, you may encounter an “incompatible hardware” error.
+          (A power cycle usually fixes that.)
+        </p>
+        <p>
+          Want to remove the range extender? There are “bullet” plugs mid-cable for a modular setup, or you can remove
+          the “spade” plugs near the wire tap for a more permanent removal – all solder-free.
+        </p>
+      </div>
+      <div id="answer3-4a" class="answer-text" style="display: none;">
+        <h3>4a. Ideas for going VESC</h3>
+        <p>
+          (Details for a VESC conversion can be provided here. This branch allows you to up the voltage and torque
+          for a more performance‐oriented setup.)
+        </p>
+      </div>
+      <!-- Again, no next container is defined; you could add further navigation as needed -->
+    </div>
   </div>
 
-  <!-- JavaScript to handle showing answers and revealing next questions -->
+  <!-- Container Tire: Tire Branch -->
+  <div id="questionTire" class="container" style="display: none;">
+    <h2>Ideas for the tire</h2>
+    <p>
+      The tire on this board is an Enduro that is quite new – designed for a blend of grip and durability.
+      (Additional details and ideas for optimizing the tire or replacing it could be added here.)
+    </p>
+  </div>
+
+  <!-- Container VESC: VESC Branch -->
+  <div id="questionVESC" class="container" style="display: none;">
+    <h2>VESC Conversion</h2>
+    <p>
+      (Further ideas and instructions for turning this board into a VESC-powered machine can be detailed here.)
+    </p>
+  </div>
+
+  <!-- JavaScript to handle showing answers and revealing next containers -->
   <script>
-    function showAnswer(answerDivId, option) {
-      // Show the answer container for the current question
+    // A global variable to hold the ID of the next container to reveal.
+    var nextContainer = "";
+
+    // showAnswer takes the ID of the answer block in the current container,
+    // a key to select which answer text to show, and the next container to reveal.
+    function showAnswer(answerDivId, choiceKey, nextId) {
       var answerDiv = document.getElementById(answerDivId);
       answerDiv.style.display = 'block';
 
-      // Hide all answer-text blocks within this container
+      // Hide all answer texts within this block.
       var answerBlocks = answerDiv.getElementsByClassName('answer-text');
       for (var i = 0; i < answerBlocks.length; i++) {
         answerBlocks[i].style.display = 'none';
       }
-      // Show the selected answer block
-      var chosenAnswer = document.getElementById(answerDivId + '-' + option);
-      if (chosenAnswer) {
-        chosenAnswer.style.display = 'block';
+      // Show the chosen answer.
+      var chosen = document.getElementById(answerDivId + '-' + choiceKey);
+      if (chosen) {
+        chosen.style.display = 'block';
       }
-      // Optionally, scroll to the answer block for clarity
+
+      // Store the next container ID for the "Next" button (if provided)
+      nextContainer = nextId;
+
+      // Show the next button only if a next container is defined.
+      var nextBtn = document.getElementById('next' + answerDivId.slice(-1));
+      if (nextBtn) {
+        nextBtn.style.display = (nextId ? 'inline-block' : 'none');
+      }
+
+      // Scroll the answer block into view.
       answerDiv.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function revealQuestion(questionId) {
-      // Reveal the next question container
-      var nextQuestion = document.getElementById(questionId);
-      nextQuestion.style.display = 'block';
-      // Smooth scroll to the new question
-      nextQuestion.scrollIntoView({ behavior: 'smooth' });
+    // revealQuestion reveals the container with the given ID.
+    function revealQuestion(qId) {
+      if (qId) {
+        var nextQ = document.getElementById(qId);
+        nextQ.style.display = 'block';
+        nextQ.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   </script>
 </body>
